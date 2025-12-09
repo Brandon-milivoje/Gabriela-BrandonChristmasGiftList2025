@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GiftCraft | Brandon & Gabriela</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fonts & Icons (optional but gives a nice look) -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      /* Christmas plaid palette */
+      --red: #a00018;
+      --red-dark: #5b0010;
+      --green: #14502e;
+      --green-dark: #052814;
+      --gold: #e2c35a;
+      --cream-bg: #fff7eb;
+      --white: #ffffff;
+      --text-dark: #2e1a1a;
+      --text-muted: #9f8f8f;
+      --danger: #e57373;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background-color: var(--red-dark);
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      /* plaid-like background */
+      background-image:
+        linear-gradient(90deg, rgba(0,0,0,0.45) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(0,0,0,0.45) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(110,0,15,0.6) 15px, transparent 15px),
+        linear-gradient(180deg, rgba(110,0,15,0.6) 15px, transparent 15px),
+        linear-gradient(90deg, rgba(8, 76, 40, 0.7) 3px, transparent 3px),
+        linear-gradient(180deg, rgba(8, 76, 40, 0.7) 3px, transparent 3px),
+        radial-gradient(circle at 5% 15%, rgba(255,215,0,0.45) 1px, transparent 1px),
+        radial-gradient(circle at 70% 60%, rgba(255,215,0,0.45) 1px, transparent 1px),
+        radial-gradient(circle at 90% 30%, rgba(255,215,0,0.45) 1px, transparent 1px);
+      background-size:
+        40px 40px,
+        40px 40px,
+        120px 120px,
+        120px 120px,
+        80px 80px,
+        80px 80px,
+        140px 140px,
+        180px 180px,
+        220px 220px;
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(90deg, var(--green), var(--red));
+      color: var(--white);
+      padding: 1.4rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+      border-bottom: 1px solid rgba(0,0,0,0.4);
+    }
+
+    .logo-area h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .logo-area span {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      font-weight: 300;
+    }
+
+    .budget-snapshot {
+      background: rgba(0,0,0,0.25);
+      padding: 0.6rem 1.2rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(226,195,90,0.7);
+    }
+
+    .budget-snapshot i {
+      color: var(--gold);
+    }
+
+    /* MAIN LAYOUT */
+    .container {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1.8fr) 320px;
+      gap: 18px;
+      padding: 18px;
+      max-height: calc(100vh - 80px);
+    }
+
+    @media (max-width: 1024px) {
+      .container {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto auto auto;
+        max-height: none;
+      }
+    }
+
+    /* Generic Card */
+    .card {
+      background: radial-gradient(circle at top left, rgba(255,255,255,0.12), rgba(20,10,10,0.97));
+      border-radius: 14px;
+      padding: 16px 16px 18px;
+      box-shadow: 0 8px 26px rgba(0,0,0,0.45);
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      flex-direction: column;
+      color: var(--cream-bg);
+    }
+
+    .card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--gold);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.16);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card h2 i {
+      color: var(--gold);
+      font-size: 1.05rem;
+    }
+
+    /* LEFT COLUMN: PEOPLE LIST */
+    .people-list {
+      overflow-y: auto;
+    }
+
+    .category-title {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      margin: 12px 0 8px;
+    }
+
+    .person-item {
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.05s;
+      margin-bottom: 5px;
+      background: rgba(0,0,0,0.18);
+    }
+
+    .person-item:hover {
+      background: rgba(0,0,0,0.32);
+      transform: translateY(-1px);
+    }
+
+    .person-item.active {
+      background: rgba(226,195,90,0.22);
+      border: 1px solid rgba(226,195,90,0.7);
+    }
+
+    .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      margin-right: 10px;
+      background: rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      color: var(--gold);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+
+    .person-info {
+      flex: 1;
+      font-size: 0.8rem;
+    }
+
+    .person-name {
+      font-weight: 600;
+      color: var(--cream-bg);
+    }
+
+    .person-rel {
+      color: var(--text-muted);
+      font-size: 0.74rem;
+    }
+
+    .priority-dot {
+      height: 9px;
+      width: 9px;
+      border-radius: 50%;
+      margin-left: 6px;
+    }
+    .priority-high { background: var(--danger); }
+    .priority-medium { background: var(--gold); }
+    .priority-low { background: var(--green); }
+
+    /* CENTER: MAIN GIFTS VIEW */
+    .main-view {
+      overflow-y: auto;
+    }
+
+    .section-subtext {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .summary-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .pill-stat {
+      background: rgba(0,0,0,0.55);
+      border-radius: 10px;
+      padding: 8px 9px;
+      border: 1px solid rgba(255,255,255,0.16);
+      font-size: 0.8rem;
+    }
+    .pill-label { color: var(--text-muted); }
+    .pill-value { color: var(--gold); font-weight: 600; }
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 0.78rem;
+    }
+
+    select,
+    input[type="number"],
+    input[type="text"],
+    textarea {
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(18,10,10,0.96);
+      color: var(--cream-bg);
+      padding: 6px 8px;
+      font-size: 0.8rem;
+      outline: none;
+    }
+
+    textarea {
+      border-radius: 10px;
+      resize: vertical;
+    }
+
+    select:focus,
+    input:focus,
+    textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 1px rgba(226,195,90,0.8);
+    }
+
+    button {
+      border-radius: 999px;
+      border: none;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.05s, box-shadow 0.05s, background 0.15s;
+    }
+
+    button:active {
+      transform: translateY(1px);
+      box-shadow: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: #fff;
+      border: 1px solid rgba(226,195,90,0.8);
+      box-shadow: 0 5px 18px rgba(0,0,0,0.4);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--cream-bg);
+      border: 1px solid rgba(255,255,255,0.35);
+    }
+
+    .btn-toggle {
+      background: rgba(0,0,0,0.45);
+      color: var(--cream-bg);
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 0.78rem;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+    .btn-toggle.active {
+      border-color: var(--gold);
+      background: radial-gradient(circle at top, rgba(226,195,90,0.32), rgba(0,0,0,0.75));
+    }
+
+    .btn-small {
+      padding: 4px 9px;
+      font-size: 0.75rem;
+    }
+
+    .table-wrapper {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.25);
+      margin-top: 6px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      background: rgba(26,10,10,0.97);
+    }
+
+    thead {
+      background: linear-gradient(90deg, var(--green), var(--red));
+    }
+
+    th, td {
+      padding: 6px 7px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.16);
+      vertical-align: middle;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    tbody tr:nth-child(odd) {
+      background: rgba(35,14,14,0.97);
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(22,9,9,0.97);
+    }
+
+    .notes-input {
+      width: 100%;
+      max-width: 220px;
+      font-size: 0.76rem;
+    }
+
+    .input-small {
+      max-width: 80px;
+    }
+
+    .status-select {
+      border-radius: 999px;
+      padding: 3px 6px;
+      font-size: 0.75rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      padding: 2px 7px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: var(--cream-bg);
+    }
+
+    .badge.priority-high { background: rgba(224, 88, 88, 0.9); }
+    .badge.priority-med  { background: rgba(226,195,90,0.9); color: #332108; }
+    .badge.priority-low  { background: rgba(20,80,46,0.9); }
+
+    .tag {
+      display: inline-flex;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.35);
+      font-size: 0.7rem;
+    }
+    .tag-brandon { border-color: #9ad2ff; color: #e1f4ff; }
+    .tag-gabriela { border-color: #ffb6c1; color: #ffe7ee; }
+    .tag-both { border-color: var(--gold); color: #fff7cf; }
+
+    .text-right { text-align: right; }
+
+    /* RIGHT COLUMN: COUNTDOWN / BUDGET / SURPRISE / CALENDAR */
+    .right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      overflow-y: auto;
+    }
+
+    .countdown-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .countdown-box {
+      border-radius: 10px;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.22);
+      padding: 8px 9px;
+      font-size: 0.8rem;
+    }
+
+    .countdown-label {
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .countdown-value {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .countdown-secondary {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    .identity-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 0.78rem;
+    }
+
+    .identity-row span.label {
+      color: var(--text-muted);
+    }
+
+    .surprise-card {
+      border-radius: 10px;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.18);
+      padding: 8px 9px;
+      font-size: 0.78rem;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .surprise-name {
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    .surprise-meta {
+      color: var(--cream-bg);
+      font-size: 0.74rem;
+    }
+
+    .muted {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    .footer-note {
+      margin-top: 6px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* Calendar */
+    .calendar {
+      font-size: 0.78rem;
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      align-items: baseline;
+    }
+
+    .calendar-header span {
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    .calendar-cell {
+      text-align: center;
+      padding: 4px 0;
+      border-radius: 6px;
+      min-height: 22px;
+    }
+
+    .calendar-day-name {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .calendar-date {
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(255,255,255,0.15);
+      cursor: default;
+    }
+
+    .calendar-date.ship {
+      border-color: #ffd180;
+      background: rgba(255,193,7,0.2);
+    }
+
+    .calendar-date.xmas {
+      border-color: #ffab91;
+      background: rgba(255,138,101,0.3);
+    }
+
+    .calendar-date.today {
+      outline: 2px solid rgba(226,195,90,0.9);
+    }
+
+    .calendar-legend {
+      margin-top: 6px;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      display: inline-block;
+      margin-right: 3px;
+    }
+
+    .legend-ship { background: rgba(255,193,7,0.7); }
+    .legend-xmas { background: rgba(255,138,101,0.8); }
+
+    /* Bottom strip small text on desktop */
+    .bottom-note {
+      padding: 6px 16px 12px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo-area">
+    <h1>GiftCraft</h1>
+    <span>Brandon &amp; Gabriela’s Christmas Hub</span>
+  </div>
+  <div class="budget-snapshot">
+    <i class="fas fa-wallet"></i>
+    <span id="headerBudgetText">Total Spent: $0</span>
+  </div>
+</header>
+
+<div class="container">
+  <!-- LEFT: PEOPLE LIST -->
+  <aside class="card people-list">
+    <h2><i class="fas fa-users"></i> People</h2>
+    <p class="section-subtext">Tap a person to focus on their gifts. “+ Gift” in the table adds more items for them.</p>
+
+    <div id="peopleList">
+      <!-- Filled by JS -->
+    </div>
+
+    <div style="margin-top:10px; display:flex; gap:6px; flex-wrap:wrap;">
+      <button class="btn-primary btn-small" id="addPersonBtn"><i class="fas fa-user-plus"></i> Add Person</button>
+      <button class="btn-ghost btn-small" id="clearPersonFilter"><i class="fas fa-filter-circle-xmark"></i> Show All</button>
+    </div>
+  </aside>
+
+  <!-- CENTER: MAIN VIEW -->
+  <main class="card main-view">
+    <h2><i class="fas fa-gift"></i> Gifts & Tracking</h2>
+    <p class="section-subtext">
+      Each row is a single gift. Use filters to slice the list, and “+ Gift” on a row to add another item for that person.
+    </p>
+
+    <div class="summary-row" id="summaryRow"></div>
+
+    <div class="filter-row">
+      <span style="color:var(--text-muted);">Filters:</span>
+      <select id="filterPriority">
+        <option value="all">Priority – All</option>
+        <option value="High">High Priority</option>
+        <option value="Medium">Medium Priority</option>
+        <option value="Low">Low Priority</option>
+      </select>
+      <select id="filterSide">
+        <option value="all">Side – All</option>
+        <option value="Brandon Family">Brandon’s Family</option>
+        <option value="Brandon Friends">Brandon’s Friends</option>
+        <option value="Gabriela Family">Gabriela’s Family</option>
+        <option value="Gabriela Friends">Gabriela’s Friends</option>
+      </select>
+      <select id="filterStatus">
+        <option value="all">Status – All</option>
+        <option value="Not Started">Not Started</option>
+        <option value="Browsing Ideas">Browsing Ideas</option>
+        <option value="Idea Chosen">Idea Chosen</option>
+        <option value="Ordered">Ordered</option>
+        <option value="Wrapped">Wrapped</option>
+        <option value="Given">Given</option>
+      </select>
+      <button class="btn-ghost btn-small" id="clearFilters"><i class="fas fa-eraser"></i> Clear</button>
+    </div>
+
+    <div class="table-wrapper" style="max-height: 360px; overflow:auto;">
+      <table id="mainTable">
+        <thead>
+        <tr>
+          <th>Person</th>
+          <th>Side</th>
+          <th>Priority</th>
+          <th>Assigned</th>
+          <th>Gift #</th>
+          <th>Idea</th>
+          <th>Status</th>
+          <th class="text-right">Cost ($)</th>
+          <th>Notes</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:10px; display:flex; justify-content: space-between; gap:8px; flex-wrap:wrap;">
+      <button class="btn-primary btn-small" id="exportBtn">
+        <i class="fas fa-download"></i> Export Backup (JSON)
+      </button>
+      <span class="muted">Data is saved automatically in this browser (localStorage).</span>
+    </div>
+  </main>
+
+  <!-- RIGHT: TOOLS -->
+  <aside class="right-column">
+    <div class="card">
+      <h2><i class="fas fa-clock"></i> Countdowns</h2>
+      <div class="countdown-row">
+        <div class="countdown-box">
+          <div class="countdown-label">Ship deadline – Dec 17, 2025</div>
+          <div id="countdownShip" class="countdown-value">–</div>
+          <div class="countdown-secondary">Target: everything wrapped &amp; shipped to Florida by here.</div>
+        </div>
+        <div class="countdown-box">
+          <div class="countdown-label">Christmas Day – Dec 25, 2025</div>
+          <div id="countdownXmas" class="countdown-value">–</div>
+          <div class="countdown-secondary">Goal: couch, cocoa, and no last-minute Amazon panic.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><i class="fas fa-scale-balanced"></i> Budget & Split</h2>
+      <div class="identity-row">
+        <span class="label">Current user:</span>
+        <button class="btn-toggle active" data-user="Brandon">I’m Brandon</button>
+        <button class="btn-toggle" data-user="Gabriela">I’m Gabriela</button>
+      </div>
+      <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:8px;">
+        This only affects secret gifts for each other; shared list is the same for both of you.
+      </div>
+
+      <div style="margin-bottom:6px; font-size:0.78rem;">
+        Overall budget:
+        <input type="number" id="overallBudget" min="0" step="1" class="input-small" />
+        <span class="muted">(optional)</span>
+      </div>
+
+      <div id="budgetSummary" style="font-size:0.78rem; margin-bottom:6px;"></div>
+      <div class="footer-note">
+        Gifts assigned to “Both” are split 50/50 between you when calculating each person’s share.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><i class="fas fa-user-secret"></i> Surprise Gifts</h2>
+      <p class="muted">
+        Only the current user’s surprise list is shown here. Perfect for keeping each other’s gifts secret.
+      </p>
+
+      <div style="margin:8px 0;">
+        <label for="surpriseRecipient" style="font-size:0.76rem; color:var(--text-muted);">Planning a surprise for:</label>
+        <select id="surpriseRecipient" style="margin-left:6px; font-size:0.76rem;">
+          <option value="Gabriela">Gabriela 🎀</option>
+          <option value="Brandon">Brandon 🎁</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom:8px;">
+        <input id="surpriseIdea" type="text" placeholder="Gift idea…" style="width:100%; margin-bottom:6px;">
+        <div style="display:flex; gap:6px; align-items:center;">
+          <input id="surpriseCost" type="number" min="0" step="1" placeholder="Cost" class="input-small">
+          <button id="addSurpriseBtn" class="btn-primary btn-small"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+
+      <div id="surpriseList" style="max-height:170px; overflow:auto;"></div>
+      <div class="footer-note">
+        Saved only in this browser via localStorage. If you share a laptop, agree on a “no snooping” rule. 😇
+      </div>
+    </div>
+
+    <div class="card calendar">
+      <h2><i class="fas fa-calendar-alt"></i> December 2025</h2>
+      <div class="calendar-header">
+        <span>Dec 2025</span>
+        <span class="muted">Shipping &amp; Christmas at a glance</span>
+      </div>
+      <div class="calendar-grid" id="calendarGrid">
+        <!-- JS fills -->
+      </div>
+      <div class="calendar-legend">
+        <span><span class="legend-dot legend-ship"></span>Ship by Dec 17</span>
+        <span><span class="legend-dot legend-xmas"></span>Christmas – Dec 25</span>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<div class="bottom-note">
+  Planning tip: once a week, open this together, update statuses (Ordered / Wrapped / Given), and check the ship countdown.
+  If that number’s getting small and you’re still in “Browsing Ideas”, it’s time to move. 😉
+</div>
+
+<script>
+  // STORAGE KEYS
+  const STORAGE_KEY_MAIN = "xmas2025-main-list-v3";
+  const STORAGE_KEY_SURPRISE = "xmas2025-surprise-lists";
+  const STORAGE_KEY_BUDGET = "xmas2025-budget";
+
+  // DEFAULT DATA (each row = one gift)
+  const defaultPeople = [
+    // Brandon family
+    { name: "Estela", relationship: "Brandon's Mom", side: "Brandon Family", priority: "High", assignedTo: "Both" },
+    { name: "Slavko", relationship: "Brandon's Dad", side: "Brandon Family", priority: "High", assignedTo: "Both" },
+    { name: "Nicole", relationship: "Brandon's Sister", side: "Brandon Family", priority: "High", assignedTo: "Both" },
+    { name: "Carlos", relationship: "Brandon's Brother-in-Law", side: "Brandon Family", priority: "Medium", assignedTo: "Both" },
+    { name: "Stephen", relationship: "Brandon's Brother", side: "Brandon Family", priority: "High", assignedTo: "Both" },
+    { name: "Jonah", relationship: "Brandon's Nephew (Stephen's Son)", side: "Brandon Family", priority: "High", assignedTo: "Both" },
+    { name: "Mikaela", relationship: "Brandon's Niece (Stephen's Daughter)", side: "Brandon Family", priority: "High", assignedTo: "Both" },
+    { name: "Valentina", relationship: "Brandon's Step-Niece (Stephen's Stepdaughter)", side: "Brandon Family", priority: "Medium", assignedTo: "Both" },
+    { name: "Stephen Jr", relationship: "Brandon's Nephew (Stephen's Son)", side: "Brandon Family", priority: "High", assignedTo: "Both" },
+
+    // Brandon friends
+    { name: "Josh", relationship: "Brandon's Friend", side: "Brandon Friends", priority: "Medium", assignedTo: "Brandon" },
+    { name: "David", relationship: "Brandon's Friend", side: "Brandon Friends", priority: "Medium", assignedTo: "Brandon" },
+    { name: "George", relationship: "Brandon's Friend", side: "Brandon Friends", priority: "Medium", assignedTo: "Brandon" },
+    { name: "Daniel", relationship: "Brandon's Friend", side: "Brandon Friends", priority: "Medium", assignedTo: "Brandon" },
+    { name: "Jon", relationship: "Brandon's Friend", side: "Brandon Friends", priority: "Medium", assignedTo: "Brandon" },
+
+    // Gabriela family
+    { name: "Janette", relationship: "Gabriela's Mom", side: "Gabriela Family", priority: "High", assignedTo: "Both" },
+    { name: "Jorge", relationship: "Gabriela's Dad", side: "Gabriela Family", priority: "High", assignedTo: "Both" },
+    { name: "Abigail", relationship: "Gabriela's Sister", side: "Gabriela Family", priority: "High", assignedTo: "Both" },
+    { name: "Jacqueline", relationship: "Gabriela's Aunt", side: "Gabriela Family", priority: "Medium", assignedTo: "Both" },
+    { name: "Adrian", relationship: "Gabriela's Cousin", side: "Gabriela Family", priority: "Medium", assignedTo: "Both" },
+    { name: "Rodriguez's Grandparents", relationship: "Gabriela's Maternal Grandparents", side: "Gabriela Family", priority: "High", assignedTo: "Both" },
+
+    // Gabriela friends
+    { name: "Michele", relationship: "Gabriela's Friend", side: "Gabriela Friends", priority: "Medium", assignedTo: "Gabriela" },
+    { name: "Daniele", relationship: "Gabriela's Friend", side: "Gabriela Friends", priority: "Medium", assignedTo: "Gabriela" },
+    { name: "Emily", relationship: "Gabriela's Friend", side: "Gabriela Friends", priority: "Medium", assignedTo: "Gabriela" },
+    { name: "Jazmine", relationship: "Gabriela's Friend", side: "Gabriela Friends", priority: "Medium", assignedTo: "Gabriela" },
+    { name: "Alych", relationship: "Gabriela's Friend", side: "Gabriela Friends", priority: "Medium", assignedTo: "Gabriela" }
+  ].map(p => ({
+    ...p,
+    id: crypto.randomUUID(),
+    personKey: `${p.name}::${p.side}`,
+    giftIdea: "",
+    status: "Not Started",
+    cost: "",
+    notes: ""
+  }));
+
+  // LOAD/SAVE HELPERS
+  function loadMainList() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY_MAIN);
+      if (!raw) return [...defaultPeople];
+      const parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed) || !parsed.length) return [...defaultPeople];
+      return parsed.map(p => ({
+        ...p,
+        id: p.id || crypto.randomUUID(),
+        personKey: p.personKey || `${p.name}::${p.side}`
+      }));
+    } catch {
+      return [...defaultPeople];
+    }
+  }
+
+  function saveMainList(list) {
+    localStorage.setItem(STORAGE_KEY_MAIN, JSON.stringify(list));
+  }
+
+  function loadSurpriseLists() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY_SURPRISE);
+      if (!raw) return { Brandon: [], Gabriela: [] };
+      const parsed = JSON.parse(raw);
+      return {
+        Brandon: Array.isArray(parsed.Brandon) ? parsed.Brandon : [],
+        Gabriela: Array.isArray(parsed.Gabriela) ? parsed.Gabriela : []
+      };
+    } catch {
+      return { Brandon: [], Gabriela: [] };
+    }
+  }
+
+  function saveSurpriseLists(obj) {
+    localStorage.setItem(STORAGE_KEY_SURPRISE, JSON.stringify(obj));
+  }
+
+  function loadBudget() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY_BUDGET);
+      if (!raw) return { overall: "" };
+      const parsed = JSON.parse(raw);
+      return { overall: parsed.overall ?? "" };
+    } catch {
+      return { overall: "" };
+    }
+  }
+
+  function saveBudget(b) {
+    localStorage.setItem(STORAGE_KEY_BUDGET, JSON.stringify(b));
+  }
+
+  // STATE
+  let mainList = loadMainList();
+  let surpriseLists = loadSurpriseLists();
+  let budget = loadBudget();
+  let currentUser = "Brandon";
+  const filterState = { priority: "all", side: "all", status: "all" };
+  let selectedPersonKey = null;
+
+  // DOM
+  const peopleListEl = document.getElementById("peopleList");
+  const summaryRowEl = document.getElementById("summaryRow");
+  const mainTableBody = document.querySelector("#mainTable tbody");
+  const budgetSummaryEl = document.getElementById("budgetSummary");
+  const overallBudgetInput = document.getElementById("overallBudget");
+  const headerBudgetText = document.getElementById("headerBudgetText");
+  const surpriseListEl = document.getElementById("surpriseList");
+  const calendarGridEl = document.getElementById("calendarGrid");
+
+  // UTIL
+  function formatCurrency(val) {
+    const num = Number(val);
+    if (!isFinite(num) || num === 0) return "$0";
+    return "$" + num.toFixed(0);
+  }
+
+  function calcSummary() {
+    const uniquePeople = new Set(mainList.map(g => g.personKey)).size;
+    const highPeople = new Set(mainList.filter(g => g.priority === "High").map(g => g.personKey)).size;
+    const completedGifts = mainList.filter(g => g.status === "Given").length;
+
+    let totalCost = 0, brCost = 0, gaCost = 0;
+    for (const g of mainList) {
+      const c = Number(g.cost) || 0;
+      totalCost += c;
+      if (g.assignedTo === "Brandon") brCost += c;
+      else if (g.assignedTo === "Gabriela") gaCost += c;
+      else { brCost += c / 2; gaCost += c / 2; }
+    }
+    return { uniquePeople, highPeople, completedGifts, totalCost, brCost, gaCost };
+  }
+
+  function applyFilters(list) {
+    return list.filter(item => {
+      if (selectedPersonKey && item.personKey !== selectedPersonKey) return false;
+      if (filterState.priority !== "all" && item.priority !== filterState.priority) return false;
+      if (filterState.side !== "all" && item.side !== filterState.side) return false;
+      if (filterState.status !== "all" && item.status !== filterState.status) return false;
+      return true;
+    });
+  }
+
+  function priorityBadge(priority) {
+    let cls = "badge";
+    if (priority === "High") cls += " priority-high";
+    else if (priority === "Medium") cls += " priority-med";
+    else cls += " priority-low";
+    return `<span class="${cls}">${priority}</span>`;
+  }
+
+  // RENDERING
+  function renderPeopleList() {
+    const peopleMap = new Map();
+    for (const g of mainList) {
+      if (!peopleMap.has(g.personKey)) {
+        peopleMap.set(g.personKey, { name: g.name, relationship: g.relationship, side: g.side, priority: g.priority });
+      }
+    }
+
+    // group by side for headings
+    const groups = {
+      "Brandon Family": [],
+      "Brandon Friends": [],
+      "Gabriela Family": [],
+      "Gabriela Friends": []
+    };
+    for (const [pk, info] of peopleMap.entries()) {
+      groups[info.side]?.push({ personKey: pk, ...info });
+    }
+
+    peopleListEl.innerHTML = "";
+    function priorityClass(p) {
+      if (p === "High") return "priority-high";
+      if (p === "Medium") return "priority-medium";
+      return "priority-low";
+    }
+
+    function addGroup(titleIcon, title, sideKey) {
+      const items = groups[sideKey] || [];
+      if (!items.length) return;
+      const cat = document.createElement("div");
+      cat.className = "category-title";
+      cat.innerHTML = `<i class="${titleIcon}" style="margin-right:6px;"></i>${title}`;
+      peopleListEl.appendChild(cat);
+
+      items.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "person-item";
+        if (selectedPersonKey === p.personKey) div.classList.add("active");
+        div.dataset.personKey = p.personKey;
+        div.innerHTML = `
+          <div class="avatar">${p.name.charAt(0)}</div>
+          <div class="person-info">
+            <div class="person-name">${p.name}</div>
+            <div class="person-rel">${p.relationship || ""}</div>
+          </div>
+          <div class="priority-dot ${priorityClass(p.priority)}" title="${p.priority} priority"></div>
+        `;
+        peopleListEl.appendChild(div);
+      });
+    }
+
+    addGroup("fas fa-heart", "Brandon – Family", "Brandon Family");
+    addGroup("fas fa-user-friends", "Brandon – Friends", "Brandon Friends");
+    addGroup("fas fa-heart", "Gabriela – Family", "Gabriela Family");
+    addGroup("fas fa-user-friends", "Gabriela – Friends", "Gabriela Friends");
+  }
+
+  function renderSummary() {
+    const { uniquePeople, highPeople, completedGifts, totalCost, brCost, gaCost } = calcSummary();
+
+    summaryRowEl.innerHTML = `
+      <div class="pill-stat">
+        <div class="pill-label">People on list</div>
+        <div class="pill-value">${uniquePeople}</div>
+      </div>
+      <div class="pill-stat">
+        <div class="pill-label">High-priority relatives</div>
+        <div class="pill-value">${highPeople}</div>
+      </div>
+      <div class="pill-stat">
+        <div class="pill-label">Gifts marked “Given”</div>
+        <div class="pill-value">${completedGifts}</div>
+      </div>
+      <div class="pill-stat">
+        <div class="pill-label">Total planned spend</div>
+        <div class="pill-value">${formatCurrency(totalCost)}</div>
+      </div>
+    `;
+
+    let text = `
+      <div><strong>Shared list spent so far:</strong> ${formatCurrency(totalCost)}</div>
+      <div style="margin-top:4px;">
+        <span class="tag tag-brandon">Brandon's share: ${formatCurrency(brCost)}</span>
+        &nbsp;
+        <span class="tag tag-gabriela">Gabriela's share: ${formatCurrency(gaCost)}</span>
+      </div>
+    `;
+    const overall = Number(budget.overall);
+    if (isFinite(overall) && overall > 0) {
+      const remaining = overall - totalCost;
+      const remainingStr = remaining >= 0
+        ? `<span style="color:#b7f7b7;">under by ${formatCurrency(Math.abs(remaining))}</span>`
+        : `<span style="color:#ffb3b3;">over by ${formatCurrency(Math.abs(remaining))}</span>`;
+      text += `<div style="margin-top:4px;"><strong>Overall budget:</strong> ${formatCurrency(overall)} – currently ${remainingStr}.</div>`;
+    }
+    budgetSummaryEl.innerHTML = text;
+    headerBudgetText.textContent = `Total Spent: ${formatCurrency(totalCost)}`;
+  }
+
+  function renderMainTable() {
+    const filtered = applyFilters(mainList);
+
+    // gift # per person
+    const counts = {};
+    mainTableBody.innerHTML = "";
+    for (const gift of filtered) {
+      counts[gift.personKey] = (counts[gift.personKey] || 0) + 1;
+      const giftNumber = counts[gift.personKey];
+
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>
+          <div style="font-weight:600;">${gift.name}</div>
+          <div style="font-size:0.7rem; color:#cbb8b8;">${gift.relationship || ""}</div>
+        </td>
+        <td style="font-size:0.72rem; color:#cbb8b8;">${gift.side}</td>
+        <td>${priorityBadge(gift.priority)}</td>
+        <td>
+          <select class="status-select" data-id="${gift.id}" data-field="assignedTo">
+            <option value="Brandon" ${gift.assignedTo === "Brandon" ? "selected" : ""}>Brandon</option>
+            <option value="Gabriela" ${gift.assignedTo === "Gabriela" ? "selected" : ""}>Gabriela</option>
+            <option value="Both" ${gift.assignedTo === "Both" ? "selected" : ""}>Both</option>
+          </select>
+        </td>
+        <td style="font-size:0.72rem; color:#cbb8b8;">Gift ${giftNumber}</td>
+        <td>
+          <input type="text" class="notes-input" data-id="${gift.id}" data-field="giftIdea" value="${gift.giftIdea || ""}" placeholder="Idea / gift">
+        </td>
+        <td>
+          <select class="status-select" data-id="${gift.id}" data-field="status">
+            ${["Not Started", "Browsing Ideas", "Idea Chosen", "Ordered", "Wrapped", "Given"].map(s => `
+              <option value="${s}" ${gift.status === s ? "selected" : ""}>${s}</option>
+            `).join("")}
+          </select>
+        </td>
+        <td class="text-right">
+          <input type="number" min="0" step="1" class="input-small" data-id="${gift.id}" data-field="cost" value="${gift.cost || ""}">
+        </td>
+        <td>
+          <textarea rows="1" class="notes-input" data-id="${gift.id}" data-field="notes" placeholder="Notes...">${gift.notes || ""}</textarea>
+        </td>
+        <td>
+          <button class="btn-ghost btn-small" data-action="add-gift" data-id="${gift.id}">+ Gift</button>
+        </td>
+      `;
+      mainTableBody.appendChild(tr);
+    }
+    renderSummary();
+  }
+
+  function renderIdentityButtons() {
+    document.querySelectorAll(".btn-toggle").forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.user === currentUser);
+    });
+  }
+
+  function renderSurpriseList() {
+    const list = surpriseLists[currentUser] || [];
+    if (!list.length) {
+      surpriseListEl.innerHTML = `<div class="muted">No surprises yet for ${currentUser}. Add an idea above.</div>`;
+      return;
+    }
+    surpriseListEl.innerHTML = "";
+    list.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "surprise-card";
+      div.innerHTML = `
+        <div>
+          <div class="surprise-name">${item.recipient}</div>
+          <div class="surprise-meta">
+            ${item.idea}
+            ${item.cost ? ` · <strong>${formatCurrency(item.cost)}</strong>` : ""}
+          </div>
+        </div>
+        <div>
+          <button class="btn-ghost btn-small" data-action="delete-surprise" data-surprise-id="${item.id}">✖</button>
+        </div>
+      `;
+      surpriseListEl.appendChild(div);
+    });
+  }
+
+  // CALENDAR (Dec 2025)
+  function renderCalendar() {
+    const year = 2025, monthIndex = 11; // December
+    const first = new Date(year, monthIndex, 1);
+    const firstDay = first.getDay(); // 0=Sun
+    const daysInMonth = 31;
+    const today = new Date();
+    const isThisMonth = today.getFullYear() === year && today.getMonth() === monthIndex;
+
+    const dayNames = ["S","M","T","W","T","F","S"];
+    calendarGridEl.innerHTML = "";
+    dayNames.forEach(d => {
+      const cell = document.createElement("div");
+      cell.className = "calendar-cell calendar-day-name";
+      cell.textContent = d;
+      calendarGridEl.appendChild(cell);
+    });
+
+    // blanks
+    for (let i = 0; i < firstDay; i++) {
+      const cell = document.createElement("div");
+      cell.className = "calendar-cell";
+      calendarGridEl.appendChild(cell);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const cell = document.createElement("div");
+      let cls = "calendar-cell calendar-date";
+      if (d === 17) cls += " ship";
+      if (d === 25) cls += " xmas";
+      if (isThisMonth && d === today.getDate()) cls += " today";
+      cell.className = cls;
+      cell.textContent = d;
+      calendarGridEl.appendChild(cell);
+    }
+  }
+
+  // COUNTDOWNS
+  const countdownShipEl = document.getElementById("countdownShip");
+  const countdownXmasEl = document.getElementById("countdownXmas");
+  const shipDeadline = new Date(2025, 11, 17, 0, 0, 0);
+  const christmasDay = new Date(2025, 11, 25, 0, 0, 0);
+
+  function formatCountdown(target) {
+    const now = new Date();
+    const diff = target - now;
+    if (diff <= 0) return "0 days 0h 0m 0s";
+    const totalSeconds = Math.floor(diff / 1000);
+    const days = Math.floor(totalSeconds / (24 * 3600));
+    const hours = Math.floor((totalSeconds % (24 * 3600)) / 3600);
+    const mins = Math.floor((totalSeconds % 3600) / 60);
+    const secs = totalSeconds % 60;
+    return `${days} days ${hours}h ${mins}m ${secs}s`;
+  }
+
+  function updateCountdowns() {
+    countdownShipEl.textContent = formatCountdown(shipDeadline);
+    countdownXmasEl.textContent = formatCountdown(christmasDay);
+  }
+  setInterval(updateCountdowns, 1000);
+  updateCountdowns();
+
+  // EVENTS
+
+  // Filters
+  document.getElementById("filterPriority").addEventListener("change", e => {
+    filterState.priority = e.target.value;
+    renderMainTable();
+  });
+  document.getElementById("filterSide").addEventListener("change", e => {
+    filterState.side = e.target.value;
+    renderMainTable();
+  });
+  document.getElementById("filterStatus").addEventListener("change", e => {
+    filterState.status = e.target.value;
+    renderMainTable();
+  });
+  document.getElementById("clearFilters").addEventListener("click", () => {
+    filterState.priority = "all";
+    filterState.side = "all";
+    filterState.status = "all";
+    document.getElementById("filterPriority").value = "all";
+    document.getElementById("filterSide").value = "all";
+    document.getElementById("filterStatus").value = "all";
+    renderMainTable();
+  });
+
+  // Person selection
+  peopleListEl.addEventListener("click", e => {
+    const item = e.target.closest(".person-item");
+    if (!item) return;
+    const pk = item.dataset.personKey;
+    selectedPersonKey = pk;
+    renderPeopleList();
+    renderMainTable();
+  });
+  document.getElementById("clearPersonFilter").addEventListener("click", () => {
+    selectedPersonKey = null;
+    renderPeopleList();
+    renderMainTable();
+  });
+
+  // Identity toggle
+  document.querySelectorAll(".btn-toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+      currentUser = btn.dataset.user;
+      renderIdentityButtons();
+      renderSurpriseList();
+    });
+  });
+
+  // Table change events
+  mainTableBody.addEventListener("change", e => {
+    const t = e.target;
+    const id = t.dataset.id;
+    const field = t.dataset.field;
+    if (!id || !field) return;
+    mainList = mainList.map(g => g.id === id ? { ...g, [field]: t.value.trim() } : g);
+    saveMainList(mainList);
+    renderSummary();
+  });
+
+  mainTableBody.addEventListener("blur", e => {
+    const t = e.target;
+    const id = t.dataset.id;
+    const field = t.dataset.field;
+    if (!id || !field) return;
+    mainList = mainList.map(g => g.id === id ? { ...g, [field]: t.value } : g);
+    saveMainList(mainList);
+  }, true);
+
+  // Add gift for person
+  mainTableBody.addEventListener("click", e => {
+    const btn = e.target.closest("button[data-action='add-gift']");
+    if (!btn) return;
+    const id = btn.dataset.id;
+    const base = mainList.find(g => g.id === id);
+    if (!base) return;
+    const newGift = {
+      ...base,
+      id: crypto.randomUUID(),
+      giftIdea: "",
+      status: "Not Started",
+      cost: "",
+      notes: ""
+    };
+    mainList.push(newGift);
+    saveMainList(mainList);
+    renderMainTable();
+  });
+
+  // Add person
+  document.getElementById("addPersonBtn").addEventListener("click", () => {
+    const name = prompt("New person’s name:");
+    if (!name) return;
+    const relationship = prompt("How are they related / who are they? (optional)", "");
+    const side = prompt("Side? Type one of: 'Brandon Family', 'Brandon Friends', 'Gabriela Family', 'Gabriela Friends'.", "Brandon Friends") || "Brandon Friends";
+    const priority = prompt("Priority? High / Medium / Low", "Medium") || "Medium";
+
+    const personKey = `${name.trim()}::${side}`;
+    const newGiftRow = {
+      id: crypto.randomUUID(),
+      name: name.trim(),
+      relationship: relationship || "",
+      side,
+      priority: ["High","Medium","Low"].includes(priority) ? priority : "Medium",
+      assignedTo: "Both",
+      giftIdea: "",
+      status: "Not Started",
+      cost: "",
+      notes: "",
+      personKey
+    };
+    mainList.push(newGiftRow);
+    saveMainList(mainList);
+    renderPeopleList();
+    renderMainTable();
+  });
+
+  // Export JSON
+  document.getElementById("exportBtn").addEventListener("click", () => {
+    const data = { mainList, surpriseLists, budget };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "christmas-gift-list-2025-backup.json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  // Budget
+  overallBudgetInput.addEventListener("change", e => {
+    budget.overall = e.target.value.trim();
+    saveBudget(budget);
+    renderSummary();
+  });
+
+  // Surprise add/delete
+  document.getElementById("addSurpriseBtn").addEventListener("click", () => {
+    const recipient = document.getElementById("surpriseRecipient").value;
+    const ideaInput = document.getElementById("surpriseIdea");
+    const costInput = document.getElementById("surpriseCost");
+    const idea = ideaInput.value.trim();
+    const cost = costInput.value.trim();
+    if (!idea) {
+      alert("Add a short description for the surprise gift idea.");
+      return;
+    }
+    const list = surpriseLists[currentUser] || [];
+    list.push({ id: crypto.randomUUID(), recipient, idea, cost });
+    surpriseLists[currentUser] = list;
+    saveSurpriseLists(surpriseLists);
+    ideaInput.value = "";
+    costInput.value = "";
+    renderSurpriseList();
+  });
+
+  surpriseListEl.addEventListener("click", e => {
+    const btn = e.target.closest("button[data-action='delete-surprise']");
+    if (!btn) return;
+    const id = btn.dataset.surpriseId;
+    let list = surpriseLists[currentUser] || [];
+    list = list.filter(item => item.id !== id);
+    surpriseLists[currentUser] = list;
+    saveSurpriseLists(surpriseLists);
+    renderSurpriseList();
+  });
+
+  // INIT
+  function init() {
+    overallBudgetInput.value = budget.overall || "";
+    renderIdentityButtons();
+    renderPeopleList();
+    renderMainTable();
+    renderSurpriseList();
+    renderCalendar();
+  }
+
+  init();
+</script>
+
+</body>
+</html>
