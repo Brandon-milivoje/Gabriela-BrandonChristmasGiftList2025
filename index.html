@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GiftCraft | Brandon & Gabriela</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --red: #a00018;
+      --red-dark: #4d000e;
+      --green: #14502e;
+      --green-dark: #032018;
+      --gold: #e2c35a;
+      --cream-bg: #fff7eb;
+      --white: #ffffff;
+      --text-dark: #2e1a1a;
+      --text-muted: #c6b4b4;
+      --danger: #e57373;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: var(--red-dark);
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      /* plaid background */
+      background-image:
+        linear-gradient(90deg, rgba(0,0,0,0.5) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(0,0,0,0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(110,0,15,0.6) 15px, transparent 15px),
+        linear-gradient(180deg, rgba(110,0,15,0.6) 15px, transparent 15px),
+        linear-gradient(90deg, rgba(8,76,40,0.75) 3px, transparent 3px),
+        linear-gradient(180deg, rgba(8,76,40,0.75) 3px, transparent 3px),
+        radial-gradient(circle at 5% 15%, rgba(255,215,0,0.45) 1px, transparent 1px),
+        radial-gradient(circle at 70% 60%, rgba(255,215,0,0.45) 1px, transparent 1px),
+        radial-gradient(circle at 90% 30%, rgba(255,215,0,0.45) 1px, transparent 1px);
+      background-size:
+        40px 40px,
+        40px 40px,
+        120px 120px,
+        120px 120px,
+        80px 80px,
+        80px 80px,
+        140px 140px,
+        180px 180px,
+        220px 220px;
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(90deg, var(--green), var(--red));
+      color: var(--white);
+      padding: 1.4rem 2rem 1.1rem;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+      border-bottom: 1px solid rgba(0,0,0,0.4);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 16px;
+    }
+
+    .logo-area {
+      flex: 1;
+      text-align: center;
+    }
+
+    .logo-area h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icons {
+      font-size: 1.4rem;
+      display: inline-flex;
+      gap: 6px;
+      color: var(--gold);
+    }
+
+    .logo-area span {
+      display: block;
+      font-size: 0.9rem;
+      opacity: 0.95;
+      font-weight: 300;
+      margin-top: 4px;
+    }
+
+    .budget-snapshot {
+      background: rgba(0,0,0,0.25);
+      padding: 0.6rem 1.2rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(226,195,90,0.7);
+      white-space: nowrap;
+    }
+
+    .budget-snapshot i { color: var(--gold); }
+
+    @media (max-width: 900px) {
+      header { padding: 1rem 1rem 0.9rem; }
+      .header-inner { flex-direction: column; }
+      .logo-area h1 { font-size: 1.7rem; letter-spacing: 0.11em; }
+      .budget-snapshot { align-self: center; }
+    }
+
+    /* MAIN LAYOUT */
+    .container {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 300px minmax(0, 2.1fr) 320px;
+      gap: 18px;
+      padding: 18px;
+    }
+
+    @media (max-width: 1080px) {
+      .container {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto auto auto;
+      }
+    }
+
+    /* CARD */
+    .card {
+      background: radial-gradient(circle at top left, rgba(255,255,255,0.12), rgba(20,10,10,0.97));
+      border-radius: 16px;
+      padding: 16px 16px 18px;
+      box-shadow: 0 8px 26px rgba(0,0,0,0.45);
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      flex-direction: column;
+      color: var(--cream-bg);
+    }
+
+    .card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--gold);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.16);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card h2 i { color: var(--gold); font-size: 1.05rem; }
+
+    /* PEOPLE LIST */
+    .people-list { overflow-y: auto; min-height: 500px; }
+
+    .section-subtext {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .category-title {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      margin: 10px 0 6px;
+    }
+
+    .person-item {
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.05s;
+      margin-bottom: 5px;
+      background: rgba(0,0,0,0.18);
+      gap: 6px;
+    }
+
+    .person-item:hover { background: rgba(0,0,0,0.32); transform: translateY(-1px); }
+
+    .person-item.active {
+      background: rgba(226,195,90,0.22);
+      border: 1px solid rgba(226,195,90,0.7);
+    }
+
+    .person-item.person-done { opacity: 0.5; }
+
+    .avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem;
+      color: var(--gold);
+      border: 1px solid rgba(255,255,255,0.18);
+      flex-shrink: 0;
+    }
+
+    .person-info { flex: 1; font-size: 0.78rem; }
+
+    .person-name { font-weight: 600; color: var(--cream-bg); }
+
+    .person-item.person-done .person-name {
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    .person-rel { color: var(--text-muted); font-size: 0.7rem; }
+
+    .priority-dot {
+      height: 9px; width: 9px; border-radius: 50%;
+      margin-right: 2px; cursor: pointer;
+    }
+    .priority-high { background: var(--danger); }
+    .priority-medium { background: var(--gold); }
+    .priority-low { background: var(--green); }
+
+    .person-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-end;
+      font-size: 0.7rem;
+    }
+
+    .person-done-label { color: var(--text-muted); font-size: 0.7rem; }
+    .person-done-checkbox { cursor: pointer; }
+
+    .person-delete-btn {
+      border: none; background: transparent; color: var(--text-muted);
+      cursor: pointer; padding: 0; font-size: 0.75rem;
+    }
+    .person-delete-btn:hover { color: #ffb3b3; }
+
+    select.person-priority-select {
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(18,10,10,0.9);
+      color: var(--cream-bg);
+      padding: 3px 6px;
+      font-size: 0.7rem;
+      outline: none;
+    }
+
+    /* CENTER MAIN */
+    .main-view { overflow: visible; min-height: 540px; }
+
+    .summary-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 1200px) {
+      .summary-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    .pill-stat {
+      background: rgba(0,0,0,0.55);
+      border-radius: 10px;
+      padding: 8px 9px;
+      border: 1px solid rgba(255,255,255,0.16);
+      font-size: 0.8rem;
+      min-height: 52px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .pill-label { color: var(--text-muted); }
+    .pill-value { color: var(--gold); font-weight: 600; }
+
+    /* GLOBAL PROGRESS BARS */
+    .global-progress {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    @media (max-width: 900px) {
+      .global-progress { grid-template-columns: minmax(0, 1fr); }
+    }
+    .progress-block {
+      background: rgba(0,0,0,0.55);
+      border-radius: 10px;
+      padding: 8px 9px;
+      border: 1px solid rgba(255,255,255,0.16);
+      font-size: 0.78rem;
+    }
+    .progress-label-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+      color: var(--text-muted);
+    }
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background: rgba(0,0,0,0.6);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold), #ffeaa7);
+      transition: width 0.25s ease-out;
+    }
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 0.78rem;
+    }
+
+    select,
+    input[type="number"],
+    input[type="text"],
+    textarea {
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(18,10,10,0.96);
+      color: var(--cream-bg);
+      padding: 6px 8px;
+      font-size: 0.8rem;
+      outline: none;
+    }
+
+    textarea {
+      border-radius: 10px;
+      resize: vertical;
+    }
+
+    select:focus,
+    input:focus,
+    textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 1px rgba(226,195,90,0.8);
+    }
+
+    button {
+      border-radius: 999px;
+      border: none;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.05s, box-shadow 0.05s, background 0.15s;
+    }
+    button:active { transform: translateY(1px); box-shadow: none; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: #fff;
+      border: 1px solid rgba(226,195,90,0.8);
+      box-shadow: 0 5px 18px rgba(0,0,0,0.4);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--cream-bg);
+      border: 1px solid rgba(255,255,255,0.35);
+    }
+
+    .btn-toggle {
+      background: rgba(0,0,0,0.45);
+      color: var(--cream-bg);
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 0.78rem;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+    .btn-toggle.active {
+      border-color: var(--gold);
+      background: radial-gradient(circle at top, rgba(226,195,90,0.32), rgba(0,0,0,0.75));
+    }
+
+    .btn-small { padding: 4px 9px; font-size: 0.75rem; }
+    .btn-danger { color: #ffb3b3; border-color: rgba(255,179,179,0.7); }
+
+    .table-wrapper {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.25);
+      margin-top: 4px;
+      max-height: 580px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      background: rgba(26,10,10,0.97);
+    }
+
+    thead { background: linear-gradient(90deg, var(--green), var(--red)); }
+
+    th, td {
+      padding: 6px 7px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.16);
+      vertical-align: middle;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    tbody tr:nth-child(odd) { background: rgba(35,14,14,0.97); }
+    tbody tr:nth-child(even) { background: rgba(22,9,9,0.97); }
+
+    .notes-input { width: 100%; max-width: 220px; font-size: 0.76rem; }
+    .input-small { max-width: 80px; }
+
+    .status-select { border-radius: 999px; padding: 3px 6px; font-size: 0.75rem; }
+    .priority-select {
+      border-radius: 999px;
+      padding: 3px 6px;
+      font-size: 0.75rem;
+      background: rgba(40,20,20,0.96);
+    }
+
+    .badge {
+      display: inline-flex;
+      padding: 2px 7px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: var(--cream-bg);
+    }
+    .badge.priority-high { background: rgba(224, 88, 88, 0.9); }
+    .badge.priority-med  { background: rgba(226,195,90,0.9); color: #332108; }
+    .badge.priority-low  { background: rgba(20,80,46,0.9); }
+
+    .tag {
+      display: inline-flex;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.35);
+      font-size: 0.7rem;
+    }
+    .tag-brandon { border-color: #9ad2ff; color: #e1f4ff; }
+    .tag-gabriela { border-color: #ffb6c1; color: #ffe7ee; }
+    .tag-both { border-color: var(--gold); color: #fff7cf; }
+
+    .text-right { text-align: right; }
+
+    .person-group-row {
+      background: rgba(60,16,16,0.98) !important;
+      font-weight: 600;
+    }
+
+    .person-group-main {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .group-toggle {
+      cursor: pointer;
+      margin-right: 6px;
+      color: var(--gold);
+    }
+
+    .group-person-name.done { text-decoration: line-through; color: var(--text-muted); }
+
+    .group-person-rel { font-size: 0.7rem; color: var(--text-muted); }
+
+    .gift-row.collapsed { display: none; }
+
+    /* LOWER COST TABLE */
+    #perPersonCostWrapper {
+      margin-top: 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.25);
+      overflow: hidden;
+      background: rgba(26,10,10,0.97);
+    }
+    #perPersonCostWrapper table thead {
+      background: linear-gradient(90deg, var(--green-dark), var(--red-dark));
+    }
+    #perPersonCostWrapper table td,
+    #perPersonCostWrapper table th {
+      font-size: 0.76rem;
+      padding: 5px 7px;
+    }
+
+    /* RIGHT COLUMN */
+    .right-column { display: flex; flex-direction: column; gap: 14px; }
+
+    .countdown-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .countdown-box {
+      border-radius: 10px;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.22);
+      padding: 8px 9px;
+      font-size: 0.8rem;
+    }
+    .countdown-label { color: var(--text-muted); margin-bottom: 2px; }
+    .countdown-value { color: var(--gold); font-weight: 600; }
+    .countdown-secondary { font-size: 0.74rem; color: var(--text-muted); }
+
+    .identity-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 0.78rem;
+    }
+    .identity-row span.label { color: var(--text-muted); }
+
+    .surprise-card {
+      border-radius: 10px;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.18);
+      padding: 8px 9px;
+      font-size: 0.78rem;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .surprise-name { font-weight: 600; color: var(--gold); }
+    .surprise-meta { color: var(--cream-bg); font-size: 0.74rem; }
+
+    .muted { font-size: 0.76rem; color: var(--text-muted); }
+    .footer-note { margin-top: 6px; font-size: 0.72rem; color: var(--text-muted); }
+
+    /* CALENDAR */
+    .calendar { font-size: 0.78rem; }
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      align-items: baseline;
+    }
+    .calendar-header span { font-weight: 600; color: var(--gold); }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    .calendar-cell {
+      text-align: center;
+      padding: 4px 0;
+      border-radius: 6px;
+      min-height: 22px;
+    }
+
+    .calendar-day-name {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .calendar-date {
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .calendar-date.ship { border-color: #ffd180; background: rgba(255,193,7,0.2); }
+    .calendar-date.xmas { border-color: #ffab91; background: rgba(255,138,101,0.3); }
+    .calendar-date.eve { border-color: #b39ddb; background: rgba(149,117,205,0.25); }
+    .calendar-date.today { outline: 2px solid rgba(226,195,90,0.9); }
+
+    .calendar-legend {
+      margin-top: 6px;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .legend-dot {
+      width: 10px; height: 10px;
+      border-radius: 3px;
+      display: inline-block;
+      margin-right: 3px;
+    }
+    .legend-ship { background: rgba(255,193,7,0.7); }
+    .legend-xmas { background: rgba(255,138,101,0.8); }
+    .legend-eve { background: rgba(149,117,205,0.8); }
+
+    .bottom-note {
+      padding: 6px 16px 12px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div style="width:190px; text-align:left;">
+      <div class="logo-icons">
+        <i class="fas fa-tree"></i>
+        <i class="fas fa-holly-berry"></i>
+        <i class="fas fa-gift"></i>
+      </div>
+    </div>
+    <div class="logo-area">
+      <h1>
+        <span class="logo-icons">
+          <i class="fas fa-tree"></i>
+        </span>
+        GIFTCRAFT
+        <span class="logo-icons">
+          <i class="fas fa-holly-berry"></i>
+          <i class="fas fa-reindeer"></i>
+        </span>
+      </h1>
+      <span>Brandon &amp; Gabriela’s Christmas Hub</span>
+    </div>
+    <div class="budget-snapshot">
+      <i class="fas fa-wallet"></i>
+      <span id="headerBudgetText">Total Planned: $0 | Purchased: $0</span>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <!-- LEFT: PEOPLE -->
+  <aside class="card people-list">
+    <h2><i class="fas fa-users"></i> People</h2>
+    <p class="section-subtext">
+      Tap a person to focus their gifts. Check them off when you’re done and adjust priority as things change.
+    </p>
+    <div id="peopleList"></div>
+    <div style="margin-top:10px; display:flex; gap:6px; flex-wrap:wrap;">
+      <button class="btn-primary btn-small" id="addPersonBtn"><i class="fas fa-user-plus"></i> Add Person</button>
+      <button class="btn-ghost btn-small" id="clearPersonFilter"><i class="fas fa-filter-circle-xmark"></i> Show All</button>
+    </div>
+  </aside>
+
+  <!-- CENTER: TABLES -->
+  <main class="card main-view">
+    <h2><i class="fas fa-gift"></i> Gifts & Tracking</h2>
+    <p class="section-subtext">
+      Each person has a header row with their gifts underneath. Use the chevron to collapse/expand.
+    </p>
+
+    <div class="summary-row" id="summaryRow"></div>
+
+    <!-- GLOBAL PROGRESS -->
+    <div class="global-progress">
+      <div class="progress-block">
+        <div class="progress-label-row">
+          <span>Gifts purchased</span>
+          <span id="purchasedProgressLabel">0%</span>
+        </div>
+        <div class="progress-track">
+          <div id="purchasedProgressFill" class="progress-fill"></div>
+        </div>
+      </div>
+      <div class="progress-block">
+        <div class="progress-label-row">
+          <span>Gifts wrapped</span>
+          <span id="wrappedProgressLabel">0%</span>
+        </div>
+        <div class="progress-track">
+          <div id="wrappedProgressFill" class="progress-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filter-row">
+      <span style="color:var(--text-muted);">Filters:</span>
+      <select id="filterPriority">
+        <option value="all">Priority – All</option>
+        <option value="High">High Priority</option>
+        <option value="Medium">Medium Priority</option>
+        <option value="Low">Low Priority</option>
+      </select>
+      <select id="filterSide">
+        <option value="all">Side – All</option>
+        <option value="Brandon Family">Brandon’s Family</option>
+        <option value="Brandon Friends">Brandon’s Friends</option>
+        <option value="Gabriela Family">Gabriela’s Family</option>
+        <option value="Gabriela Friends">Gabriela’s Friends</option>
+      </select>
+      <select id="filterStatus">
+        <option value="all">Status – All</option>
+        <option value="Not Started">Not Started</option>
+        <option value="Browsing Ideas">Browsing Ideas</option>
+        <option value="Idea Chosen">Idea Chosen</option>
+        <option value="Ordered">Ordered</option>
+        <option value="Wrapped">Wrapped</option>
+        <option value="Given">Given</option>
+      </select>
+
+      <span style="margin-left:10px; color:var(--text-muted);">Sort:</span>
+      <select id="sortBy">
+        <option value="priority" selected>Priority (High → Low)</option>
+        <option value="default">Default</option>
+      </select>
+
+      <button class="btn-ghost btn-small" id="clearFilters"><i class="fas fa-eraser"></i> Clear</button>
+    </div>
+
+    <!-- MAIN TABLE -->
+    <div class="table-wrapper" style="overflow:auto;">
+      <table id="mainTable">
+        <thead>
+        <tr>
+          <th style="width:26%;">Person &amp; Gifts</th>
+          <th>Side / Priority</th>
+          <th>Assigned</th>
+          <th>Gift #</th>
+          <th>Idea</th>
+          <th>Status</th>
+          <th class="text-right">Cost ($)</th>
+          <th>Notes</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- SIMPLE COST TABLE -->
+    <div id="perPersonCostWrapper">
+      <table>
+        <thead>
+        <tr>
+          <th>Person</th>
+          <th>Done?</th>
+          <th># Gifts (purchased)</th>
+          <th class="text-right">Purchased ($)</th>
+        </tr>
+        </thead>
+        <tbody id="perPersonCostBody"></tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:10px; display:flex; justify-content: space-between; gap:8px; flex-wrap:wrap;">
+      <button class="btn-primary btn-small" id="exportBtn">
+        <i class="fas fa-download"></i> Export Backup (JSON)
+      </button>
+      <span class="muted">Saved automatically in this browser (localStorage).</span>
+    </div>
+  </main>
+
+  <!-- RIGHT: COUNTDOWNS & EXTRAS -->
+  <aside class="right-column">
+    <div class="card">
+      <h2><i class="fas fa-clock"></i> Countdowns</h2>
+      <div class="countdown-row">
+        <div class="countdown-box">
+          <div class="countdown-label">Ship deadline – Dec 17, 2025</div>
+          <div id="countdownShip" class="countdown-value">–</div>
+          <div class="countdown-secondary">Goal: everything wrapped &amp; shipped to Florida by here.</div>
+        </div>
+        <div class="countdown-box">
+          <div class="countdown-label">Christmas Eve – Dec 24, 2025</div>
+          <div id="countdownEve" class="countdown-value">–</div>
+          <div class="countdown-secondary">You want most gifts under trees by tonight.</div>
+        </div>
+        <div class="countdown-box">
+          <div class="countdown-label">Christmas Day – Dec 25, 2025</div>
+          <div id="countdownXmas" class="countdown-value">–</div>
+          <div class="countdown-secondary">Goal: couch, cocoa, and zero last-minute Amazon panic.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><i class="fas fa-scale-balanced"></i> Budget & Split</h2>
+      <div class="identity-row">
+        <span class="label">Current user:</span>
+        <button class="btn-toggle active" data-user="Brandon">I’m Brandon</button>
+        <button class="btn-toggle" data-user="Gabriela">I’m Gabriela</button>
+      </div>
+      <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:8px;">
+        This only changes whose secret list you see; the shared table stays the same for both of you.
+      </div>
+
+      <div style="margin-bottom:6px; font-size:0.78rem;">
+        Overall budget:
+        <input type="number" id="overallBudget" min="0" step="1" class="input-small" />
+        <span class="muted">(optional)</span>
+      </div>
+
+      <div id="budgetSummary" style="font-size:0.78rem; margin-bottom:6px;"></div>
+      <div class="footer-note">
+        Gifts assigned to “Both” count 50/50 when calculating each person’s share.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><i class="fas fa-user-secret"></i> Surprise Gifts</h2>
+      <p class="muted">
+        Only the current user’s surprise list is visible here. Great for keeping each other’s presents secret.
+      </p>
+
+      <div style="margin:8px 0;">
+        <label for="surpriseRecipient" style="font-size:0.76rem; color:var(--text-muted);">Planning a surprise for:</label>
+        <select id="surpriseRecipient" style="margin-left:6px; font-size:0.76rem;">
+          <option value="Gabriela">Gabriela 🎀</option>
+          <option value="Brandon">Brandon 🎁</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom:8px;">
+        <input id="surpriseIdea" type="text" placeholder="Gift idea…" style="width:100%; margin-bottom:6px;">
+        <div style="display:flex; gap:6px; align-items:center;">
+          <input id="surpriseCost" type="number" min="0" step="1" placeholder="Cost" class="input-small">
+          <button id="addSurpriseBtn" class="btn-primary btn-small"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+
+      <div id="surpriseList" style="max-height:170px; overflow:auto;"></div>
+      <div class="footer-note">
+        Saved only in this browser via localStorage. If you share a laptop, make a “no snooping” pact. 😇
+      </div>
+    </div>
+
+    <div class="card calendar">
+      <h2><i class="fas fa-calendar-alt"></i> December 2025</h2>
+      <div class="calendar-header">
+        <span>Dec 2025</span>
+        <span class="muted">Shipping, Christmas Eve &amp; Christmas</span>
+      </div>
+      <div class="calendar-grid" id="calendarGrid"></div>
+      <div class="calendar-legend">
+        <span><span class="legend-dot legend-ship"></span>Ship by Dec 17</span>
+        <span><span class="legend-dot legend-eve"></span>Christmas Eve – Dec 24</span>
+        <span><span class="legend-dot legend-xmas"></span>Christmas – Dec 25</span>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<div class="bottom-note">
+  Once a week, open this together, update statuses, and watch the purchased & wrapped progress bars move. The lower table will fill up as you actually buy gifts, so you always see where the money’s gone.
+</div>
+
+<script>
+  const STORAGE_KEY_MAIN = "xmas2025-main-list-v7";
+  const STORAGE_KEY_SURPRISE = "xmas2025-surprise-lists";
+  const STORAGE_KEY_BUDGET = "xmas2025-budget";
+  const PURCHASED_STATUSES = ["Ordered", "Wrapped", "Given"];
+
+  const defaultPeople = [
+    { name: "Estela", relationship: "Brandon's Mom", side: "Brandon Family", priority: "High", assignedTo: "Both" },
+    { name: "Slavko", relationship: "Brandon's Dad", side: "Brandon Family", priority: "High", assignedTo: "Both" },
+    { name: "Nicole", relationship: "Brandon's Sister", side: "Brandon Family", priority: "High", assignedTo: "Both" },
+    { name: "Carlos", relationship: "Brandon's Brother-in-Law", side: "Brandon Family", priority: "Medium", assignedTo: "Both" },
+    { name: "Stephen", relationship: "Brandon's Brother", side: "Brandon Family", priority: "High", assignedTo: "Both" },
+    { name: "Jonah", relationship: "Brandon's Nephew (Stephen's Son)", side: "Brandon Family", priority: "High", assignedTo: "Both" },
+    { name: "Mikaela", relationship: "Brandon's Niece (Stephen's Daughter)", side: "Brandon Family", priority: "High", assignedTo: "Both" },
+    { name: "Valentina", relationship: "Brandon's Step-Niece (Stephen's Stepdaughter)", side: "Brandon Family", priority: "Medium", assignedTo: "Both" },
+    { name: "Stephen Jr", relationship: "Brandon's Nephew (Stephen's Son)", side: "Brandon Family", priority: "High", assignedTo: "Both" },
+    { name: "Josh", relationship: "Brandon's Friend", side: "Brandon Friends", priority: "Medium", assignedTo: "Brandon" },
+    { name: "David", relationship: "Brandon's Friend", side: "Brandon Friends", priority: "Medium", assignedTo: "Brandon" },
+    { name: "George", relationship: "Brandon's Friend", side: "Brandon Friends", priority: "Medium", assignedTo: "Brandon" },
+    { name: "Daniel", relationship: "Brandon's Friend", side: "Brandon Friends", priority: "Medium", assignedTo: "Brandon" },
+    { name: "Jon", relationship: "Brandon's Friend", side: "Brandon Friends", priority: "Medium", assignedTo: "Brandon" },
+    { name: "Janette", relationship: "Gabriela's Mom", side: "Gabriela Family", priority: "High", assignedTo: "Both" },
+    { name: "Jorge", relationship: "Gabriela's Dad", side: "Gabriela Family", priority: "High", assignedTo: "Both" },
+    { name: "Abigail", relationship: "Gabriela's Sister", side: "Gabriela Family", priority: "High", assignedTo: "Both" },
+    { name: "Jacqueline", relationship: "Gabriela's Aunt", side: "Gabriela Family", priority: "Medium", assignedTo: "Both" },
+    { name: "Adrian", relationship: "Gabriela's Cousin", side: "Gabriela Family", priority: "Medium", assignedTo: "Both" },
+    { name: "Rodriguez's Grandparents", relationship: "Gabriela's Maternal Grandparents", side: "Gabriela Family", priority: "High", assignedTo: "Both" },
+    { name: "Michele", relationship: "Gabriela's Friend", side: "Gabriela Friends", priority: "Medium", assignedTo: "Gabriela" },
+    { name: "Daniele", relationship: "Gabriela's Friend", side: "Gabriela Friends", priority: "Medium", assignedTo: "Gabriela" },
+    { name: "Emily", relationship: "Gabriela's Friend", side: "Gabriela Friends", priority: "Medium", assignedTo: "Gabriela" },
+    { name: "Jazmine", relationship: "Gabriela's Friend", side: "Gabriela Friends", priority: "Medium", assignedTo: "Gabriela" },
+    { name: "Alych", relationship: "Gabriela's Friend", side: "Gabriela Friends", priority: "Medium", assignedTo: "Gabriela" }
+  ].map(p => ({
+    ...p,
+    id: crypto.randomUUID(),
+    personKey: `${p.name}::${p.side}`,
+    giftIdea: "",
+    status: "Not Started",
+    cost: "",
+    notes: "",
+    personDone: false
+  }));
+
+  function loadMainList() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY_MAIN);
+      if (!raw) return [...defaultPeople];
+      const parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed) || !parsed.length) return [...defaultPeople];
+      return parsed.map(p => ({
+        ...p,
+        id: p.id || crypto.randomUUID(),
+        personKey: p.personKey || `${p.name}::${p.side}`,
+        personDone: !!p.personDone
+      }));
+    } catch {
+      return [...defaultPeople];
+    }
+  }
+
+  function saveMainList(list) {
+    localStorage.setItem(STORAGE_KEY_MAIN, JSON.stringify(list));
+  }
+
+  function loadSurpriseLists() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY_SURPRISE);
+      if (!raw) return { Brandon: [], Gabriela: [] };
+      const parsed = JSON.parse(raw);
+      return {
+        Brandon: Array.isArray(parsed.Brandon) ? parsed.Brandon : [],
+        Gabriela: Array.isArray(parsed.Gabriela) ? parsed.Gabriela : []
+      };
+    } catch {
+      return { Brandon: [], Gabriela: [] };
+    }
+  }
+
+  function saveSurpriseLists(obj) {
+    localStorage.setItem(STORAGE_KEY_SURPRISE, JSON.stringify(obj));
+  }
+
+  function loadBudget() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY_BUDGET);
+      if (!raw) return { overall: "" };
+      const parsed = JSON.parse(raw);
+      return { overall: parsed.overall ?? "" };
+    } catch {
+      return { overall: "" };
+    }
+  }
+
+  function saveBudget(b) {
+    localStorage.setItem(STORAGE_KEY_BUDGET, JSON.stringify(b));
+  }
+
+  let mainList = loadMainList();
+  let surpriseLists = loadSurpriseLists();
+  let budget = loadBudget();
+  let currentUser = "Brandon";
+  const filterState = { priority: "all", side: "all", status: "all" };
+  let sortState = "priority"; // default High → Low
+  let selectedPersonKey = null;
+  const collapsedPersons = new Set();
+
+  const peopleListEl = document.getElementById("peopleList");
+  const summaryRowEl = document.getElementById("summaryRow");
+  const mainTableBody = document.querySelector("#mainTable tbody");
+  const perPersonCostBody = document.getElementById("perPersonCostBody");
+  const budgetSummaryEl = document.getElementById("budgetSummary");
+  const overallBudgetInput = document.getElementById("overallBudget");
+  const headerBudgetText = document.getElementById("headerBudgetText");
+  const surpriseListEl = document.getElementById("surpriseList");
+  const calendarGridEl = document.getElementById("calendarGrid");
+  const purchasedProgressFill = document.getElementById("purchasedProgressFill");
+  const purchasedProgressLabel = document.getElementById("purchasedProgressLabel");
+  const wrappedProgressFill = document.getElementById("wrappedProgressFill");
+  const wrappedProgressLabel = document.getElementById("wrappedProgressLabel");
+
+  function formatCurrency(val) {
+    const num = Number(val);
+    if (!isFinite(num) || num === 0) return "$0";
+    return "$" + num.toFixed(0);
+  }
+
+  function personAggregates() {
+    const agg = new Map();
+    for (const g of mainList) {
+      const key = g.personKey;
+      if (!agg.has(key)) {
+        agg.set(key, {
+          name: g.name,
+          relationship: g.relationship,
+          side: g.side,
+          priority: g.priority,
+          personDone: g.personDone,
+          purchasedGifts: 0,
+          purchasedCost: 0
+        });
+      }
+      const rec = agg.get(key);
+      const c = Number(g.cost) || 0;
+      if (PURCHASED_STATUSES.includes(g.status)) {
+        rec.purchasedGifts += 1;
+        rec.purchasedCost += c;
+      }
+    }
+    return agg;
+  }
+
+  function calcSummary() {
+    const agg = personAggregates();
+    const uniquePeople = new Set(mainList.map(g => g.personKey)).size;
+    let highPeople = 0;
+    for (const pk of agg.keys()) {
+      const anyGift = mainList.find(g => g.personKey === pk);
+      if (anyGift && anyGift.priority === "High") highPeople++;
+    }
+    const completedGifts = mainList.filter(g => g.status === "Given").length;
+
+    let totalPlanned = 0, totalPurchased = 0, brCost = 0, gaCost = 0;
+    let totalGifts = mainList.length;
+    let purchasedGifts = 0;
+    let wrappedGifts = 0;
+
+    for (const g of mainList) {
+      const c = Number(g.cost) || 0;
+      totalPlanned += c;
+      if (PURCHASED_STATUSES.includes(g.status)) {
+        totalPurchased += c;
+        purchasedGifts++;
+      }
+      if (g.status === "Wrapped" || g.status === "Given") wrappedGifts++;
+
+      if (g.assignedTo === "Brandon") brCost += c;
+      else if (g.assignedTo === "Gabriela") gaCost += c;
+      else { brCost += c / 2; gaCost += c / 2; }
+    }
+
+    return { uniquePeople, highPeople, completedGifts, totalPlanned, totalPurchased, brCost, gaCost, totalGifts, purchasedGifts, wrappedGifts };
+  }
+
+  function applyFilters(list) {
+    let filtered = list.filter(item => {
+      if (selectedPersonKey && item.personKey !== selectedPersonKey) return false;
+      if (filterState.priority !== "all" && item.priority !== filterState.priority) return false;
+      if (filterState.side !== "all" && item.side !== filterState.side) return false;
+      if (filterState.status !== "all" && item.status !== filterState.status) return false;
+      return true;
+    });
+
+    if (sortState === "priority") {
+      const score = { High: 3, Medium: 2, Low: 1 };
+      filtered = [...filtered].sort((a, b) => {
+        const sa = score[a.priority] || 0;
+        const sb = score[b.priority] || 0;
+        if (sb !== sa) return sb - sa;
+        return a.name.localeCompare(b.name);
+      });
+    }
+
+    return filtered;
+  }
+
+  function priorityClassName(priority) {
+    if (priority === "High") return "priority-high";
+    if (priority === "Medium") return "priority-medium";
+    return "priority-low";
+  }
+
+  function renderPeopleList() {
+    const agg = personAggregates();
+
+    const groups = {
+      "Brandon Family": [],
+      "Brandon Friends": [],
+      "Gabriela Family": [],
+      "Gabriela Friends": []
+    };
+
+    for (const pk of new Set(mainList.map(g => g.personKey))) {
+      const anyGift = mainList.find(g => g.personKey === pk);
+      if (!anyGift) continue;
+      const pAgg = agg.get(pk) || {
+        purchasedGifts: 0,
+        purchasedCost: 0
+      };
+      groups[anyGift.side]?.push({
+        personKey: pk,
+        name: anyGift.name,
+        relationship: anyGift.relationship,
+        side: anyGift.side,
+        priority: anyGift.priority,
+        personDone: anyGift.personDone,
+        purchasedGifts: pAgg.purchasedGifts
+      });
+    }
+
+    peopleListEl.innerHTML = "";
+
+    function addGroup(icon, title, sideKey) {
+      const items = groups[sideKey] || [];
+      if (!items.length) return;
+      const cat = document.createElement("div");
+      cat.className = "category-title";
+      cat.innerHTML = `<i class="${icon}" style="margin-right:6px;"></i>${title}`;
+      peopleListEl.appendChild(cat);
+
+      items.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "person-item";
+        if (selectedPersonKey === p.personKey) div.classList.add("active");
+        if (p.personDone) div.classList.add("person-done");
+        div.dataset.personKey = p.personKey;
+
+        div.innerHTML = `
+          <div class="avatar">${p.name.charAt(0)}</div>
+          <div class="person-info">
+            <div class="person-name">${p.name}</div>
+            <div class="person-rel">${p.relationship || ""}</div>
+          </div>
+          <div class="person-actions" data-person-key="${p.personKey}">
+            <label class="person-done-label">
+              <input type="checkbox" class="person-done-checkbox" data-person-key="${p.personKey}" ${p.personDone ? "checked" : ""}>
+              Done
+            </label>
+            <select class="person-priority-select" data-person-key="${p.personKey}">
+              <option value="High" ${p.priority === "High" ? "selected" : ""}>High</option>
+              <option value="Medium" ${p.priority === "Medium" ? "selected" : ""}>Medium</option>
+              <option value="Low" ${p.priority === "Low" ? "selected" : ""}>Low</option>
+            </select>
+            <button class="person-delete-btn" data-action="delete-person" data-person-key="${p.personKey}">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+          <div class="priority-dot ${priorityClassName(p.priority)}" title="${p.priority} priority" data-action="cycle-priority" data-person-key="${p.personKey}"></div>
+        `;
+        peopleListEl.appendChild(div);
+      });
+    }
+
+    addGroup("fas fa-heart", "Brandon – Family", "Brandon Family");
+    addGroup("fas fa-user-friends", "Brandon – Friends", "Brandon Friends");
+    addGroup("fas fa-heart", "Gabriela – Family", "Gabriela Family");
+    addGroup("fas fa-user-friends", "Gabriela – Friends", "Gabriela Friends");
+  }
+
+  function renderSummaryAndProgress() {
+    const {
+      uniquePeople,
+      highPeople,
+      completedGifts,
+      totalPlanned,
+      totalPurchased,
+      brCost,
+      gaCost,
+      totalGifts,
+      purchasedGifts,
+      wrappedGifts
+    } = calcSummary();
+
+    summaryRowEl.innerHTML = `
+      <div class="pill-stat">
+        <div class="pill-label">People on list</div>
+        <div class="pill-value">${uniquePeople}</div>
+      </div>
+      <div class="pill-stat">
+        <div class="pill-label">High-priority relatives</div>
+        <div class="pill-value">${highPeople}</div>
+      </div>
+      <div class="pill-stat">
+        <div class="pill-label">Gifts marked “Given”</div>
+        <div class="pill-value">${completedGifts}</div>
+      </div>
+      <div class="pill-stat">
+        <div class="pill-label">Planned vs Purchased</div>
+        <div class="pill-value">${formatCurrency(totalPlanned)} / ${formatCurrency(totalPurchased)}</div>
+      </div>
+    `;
+
+    let text = `
+      <div><strong>Planned spend:</strong> ${formatCurrency(totalPlanned)} · <strong>Purchased so far:</strong> ${formatCurrency(totalPurchased)}</div>
+      <div style="margin-top:4px;">
+        <span class="tag tag-brandon">Brandon's share (planned): ${formatCurrency(brCost)}</span>
+        &nbsp;
+        <span class="tag tag-gabriela">Gabriela's share (planned): ${formatCurrency(gaCost)}</span>
+      </div>
+    `;
+    const overall = Number(budget.overall);
+    if (isFinite(overall) && overall > 0) {
+      const remaining = overall - totalPlanned;
+      const remainingStr = remaining >= 0
+        ? `<span style="color:#b7f7b7;">under by ${formatCurrency(Math.abs(remaining))}</span>`
+        : `<span style="color:#ffb3b3;">over by ${formatCurrency(Math.abs(remaining))}</span>`;
+      text += `<div style="margin-top:4px;"><strong>Overall budget:</strong> ${formatCurrency(overall)} – currently ${remainingStr} (using planned).</div>`;
+    }
+    budgetSummaryEl.innerHTML = text;
+    headerBudgetText.textContent = `Total Planned: ${formatCurrency(totalPlanned)} | Purchased: ${formatCurrency(totalPurchased)}`;
+
+    // Global progress bars
+    const purchasedPct = totalGifts ? Math.round((purchasedGifts / totalGifts) * 100) : 0;
+    const wrappedPct = totalGifts ? Math.round((wrappedGifts / totalGifts) * 100) : 0;
+    purchasedProgressFill.style.width = purchasedPct + "%";
+    purchasedProgressLabel.textContent = purchasedPct + "%";
+    wrappedProgressFill.style.width = wrappedPct + "%";
+    wrappedProgressLabel.textContent = wrappedPct + "%";
+  }
+
+  function renderMainTable() {
+    const filtered = applyFilters(mainList);
+    const groups = new Map();
+    for (const g of filtered) {
+      if (!groups.has(g.personKey)) groups.set(g.personKey, []);
+      groups.get(g.personKey).push(g);
+    }
+
+    mainTableBody.innerHTML = "";
+
+    for (const [personKey, gifts] of groups.entries()) {
+      const anyGift = gifts[0];
+      const collapsed = collapsedPersons.has(personKey);
+
+      const trPerson = document.createElement("tr");
+      trPerson.className = "person-group-row";
+      trPerson.dataset.personKey = personKey;
+      trPerson.innerHTML = `
+        <td colspan="2">
+          <div class="person-group-main">
+            <span class="group-toggle" data-action="toggle-group" data-person-key="${personKey}">
+              <i class="fas fa-chevron-${collapsed ? "right" : "down"}"></i>
+            </span>
+            <div>
+              <div class="group-person-name ${anyGift.personDone ? "done" : ""}">${anyGift.name}</div>
+              <div class="group-person-rel">${anyGift.relationship || ""}</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <span class="badge ${anyGift.priority === "High" ? "priority-high" : anyGift.priority === "Medium" ? "priority-med" : "priority-low"}">
+            ${anyGift.priority}
+          </span>
+        </td>
+        <td colspan="2">${anyGift.side}</td>
+        <td colspan="2">
+          <label style="font-size:0.7rem; color:var(--text-muted);">
+            <input type="checkbox" class="person-done-checkbox" data-person-key="${personKey}" ${anyGift.personDone ? "checked" : ""}>
+            Done for this person
+          </label>
+        </td>
+        <td>
+          <button class="btn-ghost btn-small btn-danger" data-action="delete-person" data-person-key="${personKey}">
+            <i class="fas fa-trash"></i> Remove
+          </button>
+        </td>
+      `;
+      mainTableBody.appendChild(trPerson);
+
+      let giftIndex = 0;
+      for (const gift of gifts) {
+        giftIndex++;
+        const trGift = document.createElement("tr");
+        trGift.className = "gift-row";
+        if (collapsed) trGift.classList.add("collapsed");
+        trGift.dataset.personKey = personKey;
+        trGift.innerHTML = `
+          <td></td>
+          <td>
+            <select class="priority-select" data-person-key="${gift.personKey}">
+              <option value="High" ${gift.priority === "High" ? "selected" : ""}>High</option>
+              <option value="Medium" ${gift.priority === "Medium" ? "selected" : ""}>Medium</option>
+              <option value="Low" ${gift.priority === "Low" ? "selected" : ""}>Low</option>
+            </select>
+          </td>
+          <td>
+            <select class="status-select" data-id="${gift.id}" data-field="assignedTo">
+              <option value="Brandon" ${gift.assignedTo === "Brandon" ? "selected" : ""}>Brandon</option>
+              <option value="Gabriela" ${gift.assignedTo === "Gabriela" ? "selected" : ""}>Gabriela</option>
+              <option value="Both" ${gift.assignedTo === "Both" ? "selected" : ""}>Both</option>
+            </select>
+          </td>
+          <td style="font-size:0.72rem; color:#cbb8b8;">Gift ${giftIndex}</td>
+          <td>
+            <input type="text" class="notes-input" data-id="${gift.id}" data-field="giftIdea" value="${gift.giftIdea || ""}" placeholder="Idea / gift">
+          </td>
+          <td>
+            <select class="status-select" data-id="${gift.id}" data-field="status">
+              ${["Not Started","Browsing Ideas","Idea Chosen","Ordered","Wrapped","Given"].map(s => `
+                <option value="${s}" ${gift.status === s ? "selected" : ""}>${s}</option>
+              `).join("")}
+            </select>
+          </td>
+          <td class="text-right">
+            <input type="number" min="0" step="1" class="input-small" data-id="${gift.id}" data-field="cost" value="${gift.cost || ""}">
+          </td>
+          <td>
+            <textarea rows="1" class="notes-input" data-id="${gift.id}" data-field="notes" placeholder="Notes...">${gift.notes || ""}</textarea>
+          </td>
+          <td>
+            <button class="btn-ghost btn-small" data-action="add-gift" data-id="${gift.id}">+ Gift</button>
+            <button class="btn-ghost btn-small btn-danger" data-action="delete-gift" data-id="${gift.id}">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        `;
+        mainTableBody.appendChild(trGift);
+      }
+    }
+
+    renderSummaryAndProgress();
+    renderPerPersonCostTable();
+  }
+
+  function renderPerPersonCostTable() {
+    const agg = personAggregates();
+    perPersonCostBody.innerHTML = "";
+    for (const rec of agg.values()) {
+      if (rec.purchasedGifts === 0) continue; // keep table blank until purchases exist
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${rec.name}</td>
+        <td>${rec.personDone ? "✅" : ""}</td>
+        <td>${rec.purchasedGifts}</td>
+        <td class="text-right">${formatCurrency(rec.purchasedCost)}</td>
+      `;
+      perPersonCostBody.appendChild(tr);
+    }
+  }
+
+  function renderIdentityButtons() {
+    document.querySelectorAll(".btn-toggle").forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.user === currentUser);
+    });
+  }
+
+  function renderSurpriseList() {
+    const list = surpriseLists[currentUser] || [];
+    if (!list.length) {
+      surpriseListEl.innerHTML = `<div class="muted">No surprises yet for ${currentUser}. Add an idea above.</div>`;
+      return;
+    }
+    surpriseListEl.innerHTML = "";
+    list.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "surprise-card";
+      div.innerHTML = `
+        <div>
+          <div class="surprise-name">${item.recipient}</div>
+          <div class="surprise-meta">
+            ${item.idea}
+            ${item.cost ? ` · <strong>${formatCurrency(item.cost)}</strong>` : ""}
+          </div>
+        </div>
+        <div>
+          <button class="btn-ghost btn-small" data-action="delete-surprise" data-surprise-id="${item.id}">✖</button>
+        </div>
+      `;
+      surpriseListEl.appendChild(div);
+    });
+  }
+
+  function renderCalendar() {
+    const year = 2025, monthIndex = 11;
+    const first = new Date(year, monthIndex, 1);
+    const firstDay = first.getDay();
+    const daysInMonth = 31;
+    const today = new Date();
+    const isThisMonth = today.getFullYear() === year && today.getMonth() === monthIndex;
+
+    const dayNames = ["S","M","T","W","T","F","S"];
+    calendarGridEl.innerHTML = "";
+    dayNames.forEach(d => {
+      const cell = document.createElement("div");
+      cell.className = "calendar-cell calendar-day-name";
+      cell.textContent = d;
+      calendarGridEl.appendChild(cell);
+    });
+
+    for (let i = 0; i < firstDay; i++) {
+      const cell = document.createElement("div");
+      cell.className = "calendar-cell";
+      calendarGridEl.appendChild(cell);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const cell = document.createElement("div");
+      let cls = "calendar-cell calendar-date";
+      if (d === 17) cls += " ship";
+      if (d === 24) cls += " eve";
+      if (d === 25) cls += " xmas";
+      if (isThisMonth && d === today.getDate()) cls += " today";
+      cell.className = cls;
+      cell.textContent = d;
+      calendarGridEl.appendChild(cell);
+    }
+  }
+
+  const countdownShipEl = document.getElementById("countdownShip");
+  const countdownXmasEl = document.getElementById("countdownXmas");
+  const countdownEveEl = document.getElementById("countdownEve");
+  const shipDeadline = new Date(2025, 11, 17, 0, 0, 0);
+  const christmasEve = new Date(2025, 11, 24, 0, 0, 0);
+  const christmasDay = new Date(2025, 11, 25, 0, 0, 0);
+
+  function formatCountdown(target) {
+    const now = new Date();
+    const diff = target - now;
+    if (diff <= 0) return "0 days 0h 0m 0s";
+    const totalSeconds = Math.floor(diff / 1000);
+    const days = Math.floor(totalSeconds / (24 * 3600));
+    const hours = Math.floor((totalSeconds % (24 * 3600)) / 3600);
+    const mins = Math.floor((totalSeconds % 3600) / 60);
+    const secs = totalSeconds % 60;
+    return `${days} days ${hours}h ${mins}m ${secs}s`;
+  }
+
+  function updateCountdowns() {
+    countdownShipEl.textContent = formatCountdown(shipDeadline);
+    countdownEveEl.textContent = formatCountdown(christmasEve);
+    countdownXmasEl.textContent = formatCountdown(christmasDay);
+  }
+  setInterval(updateCountdowns, 1000);
+  updateCountdowns();
+
+  /* EVENTS */
+
+  document.getElementById("filterPriority").addEventListener("change", e => {
+    filterState.priority = e.target.value;
+    renderMainTable();
+  });
+  document.getElementById("filterSide").addEventListener("change", e => {
+    filterState.side = e.target.value;
+    renderMainTable();
+  });
+  document.getElementById("filterStatus").addEventListener("change", e => {
+    filterState.status = e.target.value;
+    renderMainTable();
+  });
+  document.getElementById("sortBy").addEventListener("change", e => {
+    sortState = e.target.value;
+    renderMainTable();
+  });
+
+  document.getElementById("clearFilters").addEventListener("click", () => {
+    filterState.priority = "all";
+    filterState.side = "all";
+    filterState.status = "all";
+    sortState = "priority";
+    document.getElementById("filterPriority").value = "all";
+    document.getElementById("filterSide").value = "all";
+    document.getElementById("filterStatus").value = "all";
+    document.getElementById("sortBy").value = "priority";
+    renderMainTable();
+  });
+
+  peopleListEl.addEventListener("click", e => {
+    const deleteBtn = e.target.closest("button[data-action='delete-person']");
+    if (deleteBtn) {
+      const pk = deleteBtn.dataset.personKey;
+      if (!confirm("Remove this person and all their gifts from the list?")) return;
+      mainList = mainList.filter(g => g.personKey !== pk);
+      if (selectedPersonKey === pk) selectedPersonKey = null;
+      collapsedPersons.delete(pk);
+      saveMainList(mainList);
+      renderPeopleList();
+      renderMainTable();
+      return;
+    }
+
+    const doneCheckbox = e.target.closest(".person-done-checkbox");
+    if (doneCheckbox) {
+      const pk = doneCheckbox.dataset.personKey;
+      const done = doneCheckbox.checked;
+      mainList = mainList.map(g =>
+        g.personKey === pk ? { ...g, personDone: done, status: done ? "Given" : g.status } : g
+      );
+      saveMainList(mainList);
+      renderPeopleList();
+      renderMainTable();
+      return;
+    }
+
+    const prioritySelect = e.target.closest(".person-priority-select");
+    if (prioritySelect) {
+      const pk = prioritySelect.dataset.personKey;
+      const value = prioritySelect.value;
+      mainList = mainList.map(g =>
+        g.personKey === pk ? { ...g, priority: value } : g
+      );
+      saveMainList(mainList);
+      renderPeopleList();
+      renderMainTable();
+      return;
+    }
+
+    const dot = e.target.closest("[data-action='cycle-priority']");
+    if (dot) {
+      const pk = dot.dataset.personKey;
+      const personGift = mainList.find(g => g.personKey === pk);
+      if (!personGift) return;
+      const current = personGift.priority;
+      const next = current === "High" ? "Medium" : current === "Medium" ? "Low" : "High";
+      mainList = mainList.map(g =>
+        g.personKey === pk ? { ...g, priority: next } : g
+      );
+      saveMainList(mainList);
+      renderPeopleList();
+      renderMainTable();
+      return;
+    }
+
+    const item = e.target.closest(".person-item");
+    if (!item) return;
+    const pk = item.dataset.personKey;
+    selectedPersonKey = pk;
+    renderPeopleList();
+    renderMainTable();
+  });
+
+  document.getElementById("clearPersonFilter").addEventListener("click", () => {
+    selectedPersonKey = null;
+    renderPeopleList();
+    renderMainTable();
+  });
+
+  document.querySelectorAll(".btn-toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+      currentUser = btn.dataset.user;
+      renderIdentityButtons();
+      renderSurpriseList();
+    });
+  });
+
+  mainTableBody.addEventListener("click", e => {
+    const toggle = e.target.closest("[data-action='toggle-group']");
+    if (toggle) {
+      const pk = toggle.dataset.personKey;
+      if (collapsedPersons.has(pk)) collapsedPersons.delete(pk);
+      else collapsedPersons.add(pk);
+      renderMainTable();
+      return;
+    }
+
+    const addBtn = e.target.closest("button[data-action='add-gift']");
+    if (addBtn) {
+      const id = addBtn.dataset.id;
+      const base = mainList.find(g => g.id === id);
+      if (!base) return;
+      const newGift = {
+        ...base,
+        id: crypto.randomUUID(),
+        giftIdea: "",
+        status: "Not Started",
+        cost: "",
+        notes: ""
+      };
+      mainList.push(newGift);
+      saveMainList(mainList);
+      renderMainTable();
+      renderPeopleList();
+      return;
+    }
+
+    const delGiftBtn = e.target.closest("button[data-action='delete-gift']");
+    if (delGiftBtn) {
+      const id = delGiftBtn.dataset.id;
+      mainList = mainList.filter(g => g.id !== id);
+      saveMainList(mainList);
+      renderPeopleList();
+      renderMainTable();
+      return;
+    }
+
+    const delPersonBtn = e.target.closest("button[data-action='delete-person']");
+    if (delPersonBtn) {
+      const pk = delPersonBtn.dataset.personKey;
+      if (!confirm("Remove this person and all their gifts from the list?")) return;
+      mainList = mainList.filter(g => g.personKey !== pk);
+      collapsedPersons.delete(pk);
+      if (selectedPersonKey === pk) selectedPersonKey = null;
+      saveMainList(mainList);
+      renderPeopleList();
+      renderMainTable();
+      return;
+    }
+  });
+
+  mainTableBody.addEventListener("change", e => {
+    const t = e.target;
+
+    if (t.classList.contains("person-done-checkbox")) {
+      const pk = t.dataset.personKey;
+      const done = t.checked;
+      mainList = mainList.map(g =>
+        g.personKey === pk ? { ...g, personDone: done, status: done ? "Given" : g.status } : g
+      );
+      saveMainList(mainList);
+      renderPeopleList();
+      renderMainTable();
+      return;
+    }
+
+    if (t.classList.contains("priority-select")) {
+      const pk = t.dataset.personKey;
+      const val = t.value;
+      mainList = mainList.map(g =>
+        g.personKey === pk ? { ...g, priority: val } : g
+      );
+      saveMainList(mainList);
+      renderPeopleList();
+      renderMainTable();
+      return;
+    }
+
+    const id = t.dataset.id;
+    const field = t.dataset.field;
+    if (!id || !field) return;
+    mainList = mainList.map(g => g.id === id ? { ...g, [field]: t.value.trim() } : g);
+    saveMainList(mainList);
+    renderPeopleList();
+    renderMainTable();
+  });
+
+  mainTableBody.addEventListener("blur", e => {
+    const t = e.target;
+    const id = t.dataset.id;
+    const field = t.dataset.field;
+    if (!id || !field) return;
+    mainList = mainList.map(g => g.id === id ? { ...g, [field]: t.value } : g);
+    saveMainList(mainList);
+  }, true);
+
+  document.getElementById("addPersonBtn").addEventListener("click", () => {
+    const name = prompt("New person’s name:");
+    if (!name) return;
+    const relationship = prompt("How are they related / who are they? (optional)", "");
+    const side = prompt("Side? Type one of: 'Brandon Family', 'Brandon Friends', 'Gabriela Family', 'Gabriela Friends'.", "Brandon Friends") || "Brandon Friends";
+    const priority = prompt("Priority? High / Medium / Low", "Medium") || "Medium";
+
+    const personKey = `${name.trim()}::${side}`;
+    const newGiftRow = {
+      id: crypto.randomUUID(),
+      name: name.trim(),
+      relationship: relationship || "",
+      side,
+      priority: ["High","Medium","Low"].includes(priority) ? priority : "Medium",
+      assignedTo: "Both",
+      giftIdea: "",
+      status: "Not Started",
+      cost: "",
+      notes: "",
+      personKey,
+      personDone: false
+    };
+    mainList.push(newGiftRow);
+    saveMainList(mainList);
+    renderPeopleList();
+    renderMainTable();
+  });
+
+  document.getElementById("exportBtn").addEventListener("click", () => {
+    const data = { mainList, surpriseLists, budget };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "christmas-gift-list-2025-backup.json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  overallBudgetInput.addEventListener("change", e => {
+    budget.overall = e.target.value.trim();
+    saveBudget(budget);
+    renderSummaryAndProgress();
+  });
+
+  document.getElementById("addSurpriseBtn").addEventListener("click", () => {
+    const recipient = document.getElementById("surpriseRecipient").value;
+    const ideaInput = document.getElementById("surpriseIdea");
+    const costInput = document.getElementById("surpriseCost");
+    const idea = ideaInput.value.trim();
+    const cost = costInput.value.trim();
+    if (!idea) {
+      alert("Add a short description for the surprise gift idea.");
+      return;
+    }
+    const list = surpriseLists[currentUser] || [];
+    list.push({ id: crypto.randomUUID(), recipient, idea, cost });
+    surpriseLists[currentUser] = list;
+    saveSurpriseLists(surpriseLists);
+    ideaInput.value = "";
+    costInput.value = "";
+    renderSurpriseList();
+  });
+
+  surpriseListEl.addEventListener("click", e => {
+    const btn = e.target.closest("button[data-action='delete-surprise']");
+    if (!btn) return;
+    const id = btn.dataset.surpriseId;
+    let list = surpriseLists[currentUser] || [];
+    list = list.filter(item => item.id !== id);
+    surpriseLists[currentUser] = list;
+    saveSurpriseLists(surpriseLists);
+    renderSurpriseList();
+  });
+
+  function init() {
+    overallBudgetInput.value = budget.overall || "";
+    renderIdentityButtons();
+    renderPeopleList();
+    renderMainTable();
+    renderSurpriseList();
+    renderCalendar();
+  }
+
+  init();
+</script>
+
+</body>
+</html>
